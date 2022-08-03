@@ -1,0 +1,32 @@
+@import reset.css;
+@import debug.css;
+
+#container {
+  min-width: 320px;
+  max-width: 680px;
+    
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); */
+  
+  grid-template-areas:
+    "display display display display"
+    "number number number operator"
+    "number number number operator"
+    "number number number operator"
+    "clear number equal operator"
+    ;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+#display {
+    border: 2px gray inset;
+    text-align: right;
+    
+    /*grid-column: 1/4;*/
+    /* grid-column: 1/5; */
+}
+
+#display {
+  grid-area: display;
+}
