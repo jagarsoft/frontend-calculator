@@ -1,15 +1,15 @@
-@import reset.css;
-@import debug.css;
+@import "reset.css";
+@import "debug.css";
 
 /* https://fonts.google.com/specimen/Work+Sans?preview.size=24&preview.text_type=numerals */
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital@1&display=swap');
 
-@import ds_digital.css;
+@import "ds_digital.css";
 
 #container {
   min-width: 320px;
   max-width: 680px;
-  margin: auto;
+  margin: 10px;
     
   display: grid;  
   grid-template-areas:
@@ -22,13 +22,14 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
   
-  gap: 5px
+  gap: 5px;
 }
 
 #display {
     font-family: 'DS-Digital', monospace;
     font-style: italic;
     font-weight: bold;
+    font-size: 48px;
     
     background-color: lightgray;
 }
@@ -45,7 +46,7 @@ button {
     font-size: 48px;
 }
 
-.operator, #clear, #equal, #display {
+.operator, #clear, #equal {
     font-size: 48px;
 }
 
