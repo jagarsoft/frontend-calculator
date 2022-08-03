@@ -1,16 +1,22 @@
 @import reset.css;
-/* @import debug.css; */
+@import debug.css;
+
+/* https://fonts.google.com/specimen/Work+Sans?preview.size=24&preview.text_type=numerals */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital@1&display=swap');
+
+@import ds_digital.css;
 
 #container {
   min-width: 320px;
   max-width: 680px;
+  margin: auto;
     
   display: grid;  
   grid-template-areas:
     "display display display display"
-    "one two three division"
+    "seven eight nine division"
     "four five six mult"
-    "seven eight nine minus"
+    "one two three minus"
     "clear zero equal plus"
     ;
   grid-template-columns: repeat(4, 1fr);
@@ -20,7 +26,31 @@
 }
 
 #display {
-    border: 2px gray inset;
+    font-family: 'DS-Digital', monospace;
+    font-style: italic;
+    font-weight: bold;
+    
+    background-color: lightgray;
+}
+
+button {
+    background-color: darkgray;
+    color: white;
+    
+    border-radius: 5px;
+}
+
+.number {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 48px;
+}
+
+.operator, #clear, #equal, #display {
+    font-size: 48px;
+}
+
+#display {
+    border: 3.5px gray inset;
     
     /* justify-self: end; */
     text-align: right;
