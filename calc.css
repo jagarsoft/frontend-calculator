@@ -1,32 +1,95 @@
 @import reset.css;
-@import debug.css;
+/* @import debug.css; */
 
 #container {
   min-width: 320px;
   max-width: 680px;
     
-  display: grid;
-  /* grid-template-columns: repeat(3, 1fr); */
-  
+  display: grid;  
   grid-template-areas:
     "display display display display"
-    "number number number operator"
-    "number number number operator"
-    "number number number operator"
-    "clear number equal operator"
+    "one two three division"
+    "four five six mult"
+    "seven eight nine minus"
+    "clear zero equal plus"
     ;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
+  
+  gap: 5px
 }
 
 #display {
     border: 2px gray inset;
-    text-align: right;
     
-    /*grid-column: 1/4;*/
-    /* grid-column: 1/5; */
+    /* justify-self: end; */
+    text-align: right;
 }
 
 #display {
   grid-area: display;
+}
+
+.zero {
+  grid-area: zero;
+}
+
+.one {
+  grid-area: one;
+}
+
+.two {
+  grid-area: two;
+}
+
+.three {
+  grid-area: three;
+}
+
+.four {
+  grid-area: four;
+}
+
+.five {
+  grid-area: five;
+}
+
+.six {
+  grid-area: six;
+}
+
+.seven {
+  grid-area: seven;
+}
+
+.eight {
+  grid-area: eight;
+}
+
+.nine {
+  grid-area: nine;
+}
+
+.division {
+  grid-area: division;
+}
+
+.mult {
+  grid-area: mult;
+}
+
+.plus {
+  grid-area: plus;
+}
+
+.minus {
+  grid-area: minus;
+}
+
+#clear {
+  grid-area: clear;
+}
+
+#equal {
+  grid-area: equal;
 }
