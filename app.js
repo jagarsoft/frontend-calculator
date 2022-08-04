@@ -2,9 +2,14 @@ const calc = new Calculator();
 
 const buttons = document.getElementsByTagName('button');
 
+function updateDisplay(content) {
+    const display = document.getElementById('display');
+    display.innerText = content;
+}
+
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click",
-    button => {
+    button => { // send
         type = button.srcElement.classList[0] || button.srcElement.id;
         item = button.srcElement.innerText;
         // console.log(type + ": " + item);
@@ -25,6 +30,9 @@ for (let i = 0; i < buttons.length; i++) {
                 console.log("Unknown: " + type + "(" + item + ")");
                 //console.log(button);
         }
-        
+        // receive
+        updateDisplay(calc.getDisplay());
     });
 };
+
+
