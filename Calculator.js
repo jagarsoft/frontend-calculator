@@ -1,8 +1,14 @@
 class Calculator {
-    _display = 0;
+    _result = 0;
     _stack = [];
     _operators = [];
-    _operatorSeen = false;
+    _firstDigit = true;
+    _prec = {
+        "+": 1,
+        "-": 1,
+        'x': 2,
+        "/": 2
+    };
 
     constructor (){
         this.clear();
@@ -10,45 +16,59 @@ class Calculator {
 
     number(n) {
         let x;
-        if( this._operatorSeen ) {
+        if( this._firstDigit ) {
             x = n;
         } else {
-            x = this.getDisplay();
+            x = this.getResult();
             x *= 10;
             x += n;
         }
-        this._setDisplay(x);
-        this._operatorSeen = false;
+        this._setResult(x);
+        this._firstDigit = false;
     }
 
     operator(o){
-        this._stack.push(this.getDisplay());
+        if( this._operators.length > 0 ){
+            const prev_op = this._topOf(this._operators);
+
+            if( this._prec[prev_op] > this._prec[o] ){
+                this._reduce();
+            }
+        }
+
+        this._shift(o);
+    
+        this._firstDigit = true;
+    }
+
+    _shift(o){
+        this._stack.push(this.getResult());
         this._operators.push(o);
-        this._operatorSeen = true;
     }
 
-    clear(){
-        this._setDisplay(0);
-        this._stack = [];
-        this._operators = [];
-        this._operatorSeen = false;
-    }
-
-    equal(){
+    _reduce(){
         let   x = this._stack.pop();
-        const y = this.getDisplay();
+        const y = this.getResult();
         const o = this._operators.pop();
         
+        if( x === 'E' || y === 'E'){
+            this._setResult('E');
+            return;
+        }
+
         switch(o){
             case "+":
                 x = x + y;
                 break;
+
             case '-':
                 x = x - y;
                 break;
-            case '*':
+
+            case 'x':
                 x = x * y;
                 break;
+
             case '/':
                 if( y === 0 ){
                     x = "E";
@@ -56,19 +76,37 @@ class Calculator {
                     x = x / y;
                 }
                 break;
+
             default:
                 x = "E";
         }
-        this.clear();
-        this._setDisplay(x);
-        this._operatorSeen = true;
+    
+        this._setResult(x);
     }
 
-    getDisplay(){
-        return this._display;
+    equal(){
+        while( this._operators.length > 0){
+            this._reduce();
+        }
+        this._firstDigit = true;
     }
 
-    _setDisplay(n){
-        this._display = n;
+    clear(){
+        this._setResult(0);
+        this._stack = [];
+        this._operators = [];
+        this._firstDigit = true;
+    }
+
+    getResult(){
+        return this._result;
+    }
+
+    _setResult(n){
+        this._result = n;
+    }
+
+    _topOf(operators){
+        return operators[operators.length-1];
     }
 }

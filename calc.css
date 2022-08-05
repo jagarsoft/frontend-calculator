@@ -6,9 +6,11 @@
 
 @import "ds_digital.css";
 
+@import "blink.css";
+
 #container {
-  min-width: 320px;
-  max-width: 680px;
+  min-width: 245px;
+
   margin: 10px;
     
   display: grid;  
@@ -29,7 +31,7 @@
     font-family: 'DS-Digital', monospace;
     font-style: italic;
     font-weight: bold;
-    font-size: 48px;
+    font-size: 70px;
     
     background-color: lightgray;
 }
@@ -37,16 +39,12 @@
 button {
     background-color: darkgray;
     color: white;
-    
+    font-size: 48px;
     border-radius: 5px;
 }
 
 .number {
     font-family: 'Work Sans', sans-serif;
-    font-size: 48px;
-}
-
-.operator, #clear, #equal {
     font-size: 48px;
 }
 
@@ -123,4 +121,53 @@ button {
 
 #equal {
   grid-area: equal;
+}
+
+#memclear {
+  grid-area: memclear;
+}
+
+#memrestore {
+  grid-area: memrestore;
+}
+
+#menminus {
+  grid-area: menminus;
+}
+
+#memplus {
+  grid-area: memplus;
+}
+
+#sig {
+  grid-area: sig;
+}
+
+#percent {
+  grid-area: percent;
+}
+
+#sqr {
+  grid-area: sqr;
+}
+
+#period {
+  grid-area: period;
+}
+
+@media screen and (min-width: 480px) {
+  #container {
+     min-width: 480px;
+
+    grid-template-areas:
+      "display display display display display"
+      "memclear memrestore menminus memplus division"
+      "sig seven eight nine mult"
+      "percent four five six minus"
+      "sqr one two three plus"
+      "clear period zero equal equal"
+      ;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
 }
