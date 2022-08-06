@@ -3,6 +3,8 @@ class Calculator {
     _stack = [];
     _operators = [];
     _firstDigit = true;
+    _period = false;
+    _decimals = 1;
     _prec = {
         "+": 1,
         "-": 1,
@@ -14,14 +16,20 @@ class Calculator {
         this.clear();
     }
 
-    number(n) {
+    digit(n) {
         let x;
-        if( this._firstDigit ) {
-            x = n;
+        if( this._period ){
+            this._decimals /= 10;
+            x = this._decimals * n;
+            x += this.getResult();
         } else {
-            x = this.getResult();
-            x *= 10;
-            x += n;
+            if( this._firstDigit ) {
+                x = n;
+            } else {
+                x = this.getResult();
+                x *= 10;
+                x += n;
+            }
         }
         this._setResult(x);
         this._firstDigit = false;
@@ -39,6 +47,8 @@ class Calculator {
         this._shift(o);
     
         this._firstDigit = true;
+        this._period = false;
+        this._decimals = 1;
     }
 
     _shift(o){
@@ -58,22 +68,22 @@ class Calculator {
 
         switch(o){
             case "+":
-                x = x + y;
+                x += y;
                 break;
 
             case '-':
-                x = x - y;
+                x -= y;
                 break;
 
             case 'x':
-                x = x * y;
+                x *= y;
                 break;
 
             case '/':
                 if( y === 0 ){
                     x = "E";
                 } else {
-                    x = x / y;
+                    x /= y;
                 }
                 break;
 
@@ -96,6 +106,20 @@ class Calculator {
         this._stack = [];
         this._operators = [];
         this._firstDigit = true;
+        this._period = false;
+        this._decimals = 1;
+    }
+
+    changeSign(){
+        let x = this.getResult();
+        x *= -1;
+        this._setResult(x);
+    }
+
+    squareRoot(){
+        let x = this.getResult();
+        x = Math.sqrt(x);
+        this._setResult(x);
     }
 
     getResult(){
@@ -104,6 +128,14 @@ class Calculator {
 
     _setResult(n){
         this._result = n;
+    }
+
+    getPunto(){
+        return this._period;
+    }
+
+    setPeriod(){
+        this._period = true;
     }
 
     _topOf(operators){

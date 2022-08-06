@@ -43,7 +43,7 @@ button {
     border-radius: 5px;
 }
 
-.number {
+.digit {
     font-family: 'Work Sans', sans-serif;
     font-size: 48px;
 }
@@ -139,8 +139,8 @@ button {
   grid-area: memplus;
 }
 
-#sig {
-  grid-area: sig;
+#sgn {
+  grid-area: sgn;
 }
 
 #percent {
@@ -162,12 +162,12 @@ button {
     grid-template-areas:
       "display display display display display"
       "memclear memrestore menminus memplus division"
-      "sig seven eight nine mult"
+      "sgn seven eight nine mult"
       "percent four five six minus"
       "sqr one two three plus"
       "clear period zero equal equal"
       ;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
   }
 }

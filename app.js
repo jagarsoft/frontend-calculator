@@ -4,6 +4,8 @@ const buttons = document.getElementsByTagName('button');
 
 var _blinkDisplay = false;
 
+var _period = "";
+
 function updateDisplay(content) {
     const display = document.getElementById('display');
     display.innerText = content;
@@ -50,8 +52,8 @@ for (let i = 0; i < buttons.length; i++) {
         item = button.srcElement.innerText;
         // console.log(type + ": " + item);
         switch(type){
-            case "number":
-                calc.number(parseInt(item));
+            case "digit":
+                calc.digit(parseInt(item));
                 break;
 
             case "operator":
@@ -67,14 +69,28 @@ for (let i = 0; i < buttons.length; i++) {
                 calc.equal();
                 break;
 
+            case "period":
+                if( calc.getPunto() === false ){
+                    calc.setPeriod();
+                    _period = ".";
+                }
+                break;
+
+            case "sgn":
+                calc.changeSign();
+                break;
+
+            case "sqr":
+                calc.squareRoot();
+                break;
+
             default:
                 console.log("Unknown: " + type + "(" + item + ")");
                 //console.log(button);
         }
 
         // receive
-        updateDisplay(calc.getResult());
+        updateDisplay(calc.getResult() + _period);
+        _period = "";
     });
 };
-
-
