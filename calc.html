@@ -6,11 +6,11 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" type="text/css" href="calc.css" />
 
-   <title>Javascript Calculator v7</title>
+   <title>Javascript Calculator v8</title>
 </head>
-<body>
+<body onload="(function(){updateDisplay('0')})();">
     <div id="container">
-      <label id="display">0</label>
+      <label id="display"></label>
       <button class="digit zero">0</button>
       <button class="digit one">1</button>
       <button class="digit two">2</button>
@@ -24,13 +24,14 @@
       <button class="operator plus">+</button>
       <button class="operator minus">-</button>
       <button class="operator mult">x</button>
-      <button class="operator division">/</button>
+      <button class="operator division">÷</button>
       <button id="equal">=</button>
       <button id="clear">C</button>
       <!-- extra buttons min-width: 480px -->
+      <label id="memDisplay">M</label>
       <button id="memclear">MC</button>
       <button id="memrestore">MR</button>
-      <button id="menminus">M-</button>
+      <button id="memminus">M-</button>
       <button id="memplus">M+</button>
       <button id="sgn">+/-</button>
       <button id="percent">%</button>

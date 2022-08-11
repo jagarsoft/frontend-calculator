@@ -5,6 +5,7 @@ class Calculator {
     _firstDigit = true;
     _period = false;
     _decimals = 1;
+    _memory = 0;
     _prec = {
         "+": 1,
         "-": 1,
@@ -19,6 +20,11 @@ class Calculator {
     digit(n) {
         let x;
         if( this._period ){
+            /**
+             * Algorithm proposed by Fran O'Hara
+             * for ZX81's Floating-point Calculator
+             * ISBN 0 86759 124 2
+             */
             this._decimals /= 10;
             x = this._decimals * n;
             x += this.getResult();
@@ -112,14 +118,48 @@ class Calculator {
 
     changeSign(){
         let x = this.getResult();
+        if( x === 'E' ){
+            return;
+        }
         x *= -1;
         this._setResult(x);
     }
 
     squareRoot(){
         let x = this.getResult();
-        x = Math.sqrt(x);
+        if( x === 'E' ){
+            return;
+        }
+        if( x < 0 ){
+            x = "E";
+        } else {
+            x = Math.sqrt(x);
+        }
         this._setResult(x);
+    }
+
+    memplus(){
+        let x = this._memory;
+        x += this.getResult();
+        this._memory = x;
+    }
+
+    memminus(){
+        let x = this._memory;
+        x -= this.getResult();
+        this._memory = x;
+    }
+
+    memrestore(){
+        this._setResult(this._memory);
+    }
+
+    memclear(){
+        this._memory = 0;
+    }
+
+    getMemory(){
+        return this._memory;
     }
 
     getResult(){
@@ -130,7 +170,7 @@ class Calculator {
         this._result = n;
     }
 
-    getPunto(){
+    getPeriod(){
         return this._period;
     }
 

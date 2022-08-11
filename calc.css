@@ -1,15 +1,14 @@
 @import "reset.css";
-@import "debug.css";
+/* @import "debug.css"; */
 
 /* https://fonts.google.com/specimen/Work+Sans?preview.size=24&preview.text_type=numerals */
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital@1&display=swap');
 
 @import "ds_digital.css";
 
-@import "blink.css";
-
 #container {
   min-width: 245px;
+  max-width: 480px;
 
   margin: 10px;
     
@@ -23,8 +22,10 @@
     ;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  
+
   gap: 5px;
+  
+  justify-content: center;
 }
 
 #display {
@@ -131,8 +132,8 @@ button {
   grid-area: memrestore;
 }
 
-#menminus {
-  grid-area: menminus;
+#memminus {
+  grid-area: memminus;
 }
 
 #memplus {
@@ -155,13 +156,25 @@ button {
   grid-area: period;
 }
 
+#memDisplay {
+  font-family: monospace;
+  font-size: 30px;
+  font-weight: bold;
+
+  position: absolute;
+  top: 11px;
+  left: 15px;
+  visibility: hidden;
+}
+
 @media screen and (min-width: 480px) {
   #container {
      min-width: 480px;
+     max-width: 640px;
 
     grid-template-areas:
       "display display display display display"
-      "memclear memrestore menminus memplus division"
+      "memclear memrestore memminus memplus division"
       "sgn seven eight nine mult"
       "percent four five six minus"
       "sqr one two three plus"

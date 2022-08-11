@@ -8,42 +8,33 @@ var _period = "";
 
 function updateDisplay(content) {
     const display = document.getElementById('display');
-    display.innerText = content;
+    display.innerText = content + _period;
+    _period = "";
 }
 
-function blinkDisplay() {
-    // https://attacomsian.com/blog/javascript-dom-add-a-css-class-to-an-element
-    /*const display = document.getElementById('display');
-    display.classList.add("blink");
-    return;*/
-
-    console.log("comienza parpadeo");
-    updateDisplay(""); // turn it off
-    setTimeout(turnOn, 1);
-    
-    /*
-    while( ! _blinkDisplay ) // var is not volatile
-        ;
-    */
-    // turn it on
-    console.log("terminada");
+function memDisplayOn() {
+    document.getElementById("memDisplay").style.visibility = "visible";
 }
 
-function turnOn() {
-    sleep(1000);
-    _blinkDisplay = true;
+function memDisplayOff() {
+    document.getElementById("memDisplay").style.visibility = "hidden";
 }
 
-/*
- * @link https://www.sitepoint.com/delay-sleep-pause-wait/
- */
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
+function blinkDisplay_v1() {
+    updateDisplay("");
+
+    setTimeout( () => {
+        updateDisplay(calc.getResult());
+    }, 75);
+}
+
+function blinkDisplay_v2() {
+    document.getElementById("display").style.visibility = "hidden";
+
+    setTimeout( () => {
+        document.getElementById("display").style.visibility = "visible";
+    }, 75);
+}
 
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click",
@@ -57,8 +48,11 @@ for (let i = 0; i < buttons.length; i++) {
                 break;
 
             case "operator":
+                if( item === "÷" )
+                    item = "/";
                 calc.operator(item);
-                //blinkDisplay();
+                //blinkDisplay_v1(); return;
+                //blinkDisplay_v2;
                 break;
 
             case "clear":
@@ -70,7 +64,7 @@ for (let i = 0; i < buttons.length; i++) {
                 break;
 
             case "period":
-                if( calc.getPunto() === false ){
+                if( calc.getPeriod() === false ){
                     calc.setPeriod();
                     _period = ".";
                 }
@@ -84,13 +78,34 @@ for (let i = 0; i < buttons.length; i++) {
                 calc.squareRoot();
                 break;
 
+            case "memplus":
+                calc.memplus();
+                break;
+
+            case "memminus":
+                calc.memminus();
+                break;
+
+            case "memrestore":
+                calc.memrestore();
+                break;
+
+            case "memclear":
+                calc.memclear();
+                break;
+
             default:
                 console.log("Unknown: " + type + "(" + item + ")");
                 //console.log(button);
         }
 
         // receive
-        updateDisplay(calc.getResult() + _period);
-        _period = "";
+        updateDisplay(calc.getResult());
+
+        if( calc.getMemory() ){
+            memDisplayOn();
+        } else {
+            memDisplayOff();
+        }
     });
 };
